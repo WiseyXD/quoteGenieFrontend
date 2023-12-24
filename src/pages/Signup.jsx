@@ -40,12 +40,6 @@ export default function Signup() {
                             className="w-full input input-bordered input-primary bg-white"
                         />
                     </div>
-                    <a
-                        href="#"
-                        className="text-xs text-gray-600 hover:underline hover:text-blue-600"
-                    >
-                        Forget Password?
-                    </a>
                     <div>
                         <button className="btn btn-primary">Sign Up</button>
                     </div>
