@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useLoginMutation } from "../services/quotes";
+import { useDispatch } from "react-redux";
+import { setToken } from "../context/slices/authSlice";
 
 export default function Login() {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -12,6 +15,7 @@ export default function Login() {
         try {
             const { data } = await loginMutation({ email, password });
             console.log(data);
+            dispatch(setToken(data?.token));
         } catch (error) {
             console.log(error);
         }
