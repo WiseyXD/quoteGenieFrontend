@@ -1,13 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLoginMutation } from "../services/quotes";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [loginMutation] = useLoginMutation();
+
+    async function handleLogin(e) {
+        e.preventDefault();
+        try {
+            const { data } = await loginMutation({ email, password });
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="relative flex flex-col justify-center h-screen overflow-hidde">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-lg">
                 <h1 className="text-3xl font-semibold text-center text-blue-700">
                     Quote Genie
                 </h1>
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={(e) => handleLogin(e)}>
                     <div>
                         <label className="label">
                             <span className="text-base label-text">Email</span>
@@ -16,6 +32,7 @@ export default function Login() {
                             type="text"
                             placeholder="Email Address"
                             className="w-full input input-bordered input-primary bg-white"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div>
@@ -28,6 +45,7 @@ export default function Login() {
                             type="password"
                             placeholder="Enter Password"
                             className="w-full input input-bordered input-primary bg-white"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <a
@@ -37,7 +55,9 @@ export default function Login() {
                         Forget Password?
                     </a>
                     <div>
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary" type="submit">
+                            Login
+                        </button>
                     </div>
                 </form>
             </div>
