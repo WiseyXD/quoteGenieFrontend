@@ -4,14 +4,14 @@ export const quotesApi = createApi({
     reducerPath: "quotesApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "https://quotegenie.onrender.com/user/",
-        // credentials: "include",
-        // prepareHeaders: (headers, { getState }) => {
-        //     const token = getState().auth.token;
-        //     if (token) {
-        //         headers.set("authorization", token);
-        //     }
-        //     return headers;
-        // },
+        credentials: "include",
+        prepareHeaders: (headers, { getState }) => {
+            const token = getState().auth.token;
+            if (token) {
+                headers.set("authorization", token);
+            }
+            return headers;
+        },
     }),
     endpoints: (builder) => ({
         getQuotes: builder.query({
