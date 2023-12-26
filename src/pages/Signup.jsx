@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useSignupMutation } from "../services/quotes";
-
+import { useSignupMutation } from "../services/authApi";
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
     const [signupMutation] = useSignupMutation();
 
     const handleLogin = async (e) => {
@@ -12,6 +13,10 @@ export default function Signup() {
         try {
             const { data } = await signupMutation({ name, email, password });
             console.log(data);
+            setName("");
+            setEmail("");
+            setPassword("");
+            navigate("/login");
         } catch (error) {
             console.log(error);
         }

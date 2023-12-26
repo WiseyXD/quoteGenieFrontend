@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useLoginMutation } from "../services/quotes";
+import { useLoginMutation } from "../services/authApi";
 import { useDispatch } from "react-redux";
 import { setToken } from "../context/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +18,9 @@ export default function Login() {
             const { data } = await loginMutation({ email, password });
             console.log(data);
             dispatch(setToken(data?.token));
+            if (data.token) {
+                navigate("/");
+            }
         } catch (error) {
             console.log(error);
         }
