@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoginMutation } from "../services/quotes";
+import { useLoginMutation } from "../services/authApi";
 import { useDispatch } from "react-redux";
 import { setToken } from "../context/slices/authSlice";
 
@@ -16,6 +16,8 @@ export default function Login() {
             const { data } = await loginMutation({ email, password });
             console.log(data);
             dispatch(setToken(data?.token));
+            setEmail("");
+            setPassword("");
         } catch (error) {
             console.log(error);
         }
