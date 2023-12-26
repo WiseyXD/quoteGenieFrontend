@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteToken } from "../context/slices/authSlice";
+import { deleteAuth } from "../context/slices/authSlice";
 
 export default function Navbar() {
     const dispatch = useDispatch();
     function handleLogout() {
-        dispatch(deleteToken());
+        dispatch(deleteAuth());
     }
     return (
         <div>

@@ -6,15 +6,16 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
+import { useSelector } from "react-redux";
 
 function App() {
-    const [count, setCount] = useState(0);
+    const user = useSelector((state) => state.root.auth.email);
 
     return (
         <>
             <Navbar />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={user ? <Home /> : <Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
             </Routes>
