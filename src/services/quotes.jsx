@@ -1,16 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { useSelector } from "react-redux";
 export const quotesApi = createApi({
     reducerPath: "quotesApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "https://quotegenie.onrender.com/user/",
-        credentials: "include",
         prepareHeaders: (headers, { getState }) => {
-            const token = getState().auth.token;
+            const authState = getState().root.auth;
+            const token = authState ? authState.token : null;
             if (token) {
                 headers.set("authorization", token);
+                return headers;
             }
-            return headers;
         },
     }),
     endpoints: (builder) => ({
